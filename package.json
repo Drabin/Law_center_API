@@ -1,0 +1,33 @@
+{
+  "name": "socialapi",
+  "version": "1.0.0",
+  "description": "api server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Daniel Rabinovich",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "bluebird": "^3.4.1",
+    "body-parser": "^1.15.1",
+    "bookshelf": "^0.9.5",
+    "cors": "^2.8.1",
+    "dotenv": "^2.0.0",
+    "express": "^4.13.4",
+    "express-session": "^1.13.0",
+    "jwt-simple": "^0.5.0",
+    "knex": "^0.11.10",
+    "minimatch": "^3.0.2",
+    "morgan": "^1.7.0",
+    "mysql": "^2.10.2",
+    "nodemon": "^1.9.2",
+    "objection": "^0.5.5",
+    "passport": "^0.3.2",
+    "passport-jwt": "^2.1.0",
+    "passport-local": "^1.0.0",
+    "q": "^1.4.1",
+    "require": "^2.4.20"
+  }
+}

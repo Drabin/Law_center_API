@@ -1,0 +1,20 @@
+# MacOS Stores
+.DS_Store
+
+# Node and Bower
+node_modules/
+server/config/config.js
+*.log
+
+# 
+build/
+dist/
+server/config/dev.env
+server/db/seedData/seed.json
+
+# Webpack
+client/public/webpack*
+client/public/*.hot*
+
+# Environment Configuration
+server/config/dev.env
