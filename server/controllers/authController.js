@@ -18,13 +18,14 @@ module.exports = {
   // checks to see if user already exists if not creates user 
   // and sends back a token to user 
   signup: function(req, res, next) {
+    console.log(req.body);
     const userObj = req.body;
     if(!userObj.email || !userObj.password) {
       return res.status(422).send({error: 'You must provide a email and password'})
     }
     User.where('email', userObj.email).fetch().then((user) => {
       if(user) {
-        res.send({error: 'Email is in use'});        
+        res.status(422).send({error: 'Email is in use'});        
       } else {
         new User(userObj).save()
         .then((created) => {
@@ -38,6 +39,7 @@ module.exports = {
   },
 
   login: function(req, res, next) {
+    console.log(req.user);
     res.send({ token: tokenForUser(req.user) })
   }
   
