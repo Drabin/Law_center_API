@@ -1,3 +1,4 @@
+
 const knex = require('knex')({
   client: 'mysql',
   connection: {
@@ -21,6 +22,7 @@ db.knex.schema.hasTable('users').then((exists) => {
       user.increments('id').primary();
       user.string('email', 100).unique();
       user.string('password', 100);
+      user.string('name', 50);
     }).then((table) => {
       console.log('Created table users', table);
     });
@@ -31,25 +33,39 @@ db.knex.schema.hasTable('users').then((exists) => {
 db.knex.schema.hasTable('lawyers').then((exists) => {
   if (!exists) {
     db.knex.schema.createTable('lawyers', (lawyer) => {
-      user.increments('id').primary();
-      user.string('email', 100).unique();
-      user.string('password', 100);
-      user.string('firstName', 50);
-      user.string('lastName', 50);
-      user.string('barNumber', 100);
+      lawyer.increments('id').primary();
+      lawyer.string('email', 100).unique();
+      lawyer.string('password', 100);
+      lawyer.string('first_name', 50);
+      lawyer.string('last_name', 50);
+      lawyer.string('bar_number', 100);
     }).then((table) => {
       console.log('Created table lawyers', table);
     });
   }
 });
 
-db.knex.schema.hasTable('typeOfLaw').then((exists) => {
+// defines types of law table
+db.knex.schema.hasTable('types_of_law').then((exists) => {
   if (!exists) {
-    db.knex.schema.createTable('lawyers', (lawyer) => {
-      user.increments('id').primary();
-      user.string('law', 100).unique();
+    db.knex.schema.createTable('types_of_law', (type) => {
+      type.increments('id').primary();
+      type.string('law', 100).unique();
     }).then((table) => {
-      console.log('Created table typeOfLaw', table);
+      console.log('Created table types_of_law', table);
+    });
+  }
+});
+
+// defines join table types of law and lawyers
+db.knex.schema.hasTable('types_law_lawyer').then((exists) => {
+  if (!exists) {
+    db.knex.schema.createTable('types_law_lawyer', (join) => {
+      join.increments('id').primary();
+      join.interger('law', 10);
+      join.interger('lawyer', 100);
+    }).then((table) => {
+      console.log('Created table types_law_lawyer', table);
     });
   }
 });
