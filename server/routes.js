@@ -3,7 +3,7 @@ const passportService = require('./services/passport.js');
 const passport = require('passport');
 
 const requireAuth = passport.authenticate('jwt', { session: false });
-const requireLogin = passport.authenticate('user-local', { session: false });
+const requireUserLogin = passport.authenticate('user-local', { session: false });
 
 module.exports = function(app) {
   
@@ -12,5 +12,5 @@ module.exports = function(app) {
   });
   // signup and login routes 
   app.post('/signup', authController.signup);
-  app.post('/login', requireLogin, authController.login ); 
+  app.post('/login', requireUserLogin, authController.login ); 
 }

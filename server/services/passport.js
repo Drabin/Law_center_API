@@ -18,6 +18,7 @@ const userLocalLogin = new LocalStrategy(localOptions, function(email, password,
     user.comparePassword(password, function(err, isMatch) {
       if(err) { return done(err); }
       if(!isMatch) { return done(null, false); }
+      user.attributes.kind = 'user';
       return done (null, user.attributes);
     })
   }).catch((err) => {
@@ -28,13 +29,14 @@ const userLocalLogin = new LocalStrategy(localOptions, function(email, password,
 // creates local strategy for authenticating lawyer based on email and password 
 const lawyerLocalLogin = new LocalStrategy(localOptions, function(email, password, done) {
   Lawyer.where('email', email).fetch().then((lawyer) => {
-    if(!user) {
+    if(!lawyer) {
       done(null, false);
     }
     lawyer.comparePassword(password, function(err, isMatch) {
       if(err) { return done(err); }
       if(!isMatch) { return done(null, false); }
-      return done (null, user.attributes);
+      lawyer.attributes.kind = 'lawyer';
+      return done (null, lawyer.attributes);
     })
   }).catch((err) => {
     console.error(err);
@@ -50,7 +52,6 @@ const jwtOptions = {
 
 // create jwt strategy for authenticating user based on token 
 const jwtLogin = new JwtStrategy(jwtOptions, function(payload, done) { 
-  console.log('here-------------', payload);
   let Model;
   // checks to see what type of signup it is 
   if (payload.kind === 'user') {
